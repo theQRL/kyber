@@ -1,7 +1,7 @@
 #ifndef RANDOMBYTES_H
 #define RANDOMBYTES_H
 
-#define _GNU_SOURCE
+#define _GNU_SOURCE 1
 
 #include <stddef.h>
 
