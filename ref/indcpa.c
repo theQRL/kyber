@@ -6,6 +6,12 @@
 #include "fips202.h"
 #include "ntt.h"
 
+#ifdef _WIN32
+#include <malloc.h>
+#define alloca _alloca
+#else
+#include <alloca.h>
+#endif
 /*************************************************
 * Name:        pack_pk
 * 
@@ -124,7 +130,7 @@ void gen_matrix(polyvec *a, const unsigned char *seed, int transposed) // Not st
   unsigned int pos=0, ctr;
   uint16_t val;
   unsigned int nblocks=4;
-  uint8_t buf[SHAKE128_RATE*nblocks];
+  uint8_t *buf = (uint8_t*)alloca(SHAKE128_RATE*nblocks*sizeof(uint8_t));
   int i,j;
   uint64_t state[25]; // SHAKE state
   unsigned char extseed[KYBER_SYMBYTES+2];
